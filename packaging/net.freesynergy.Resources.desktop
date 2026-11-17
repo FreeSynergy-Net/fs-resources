@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=FreeSynergy.Resources
+GenericName=Resources
+Comment=Things, rooms, material and time: who may use what, when
+Exec=fs-resources
+Icon=net.freesynergy.Resources
+Terminal=false
+Categories=Office;ProjectManagement;

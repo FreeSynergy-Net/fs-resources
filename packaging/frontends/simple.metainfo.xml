@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The manifest of the frontend `simple` (ADR 0094 draft, item 2: AppStream addon, minimal). Stage 1: same release package as the program. -->
+<component type="addon">
+  <id>net.freesynergy.Resources.simple</id>
+  <name>Simple</name>
+  <name xml:lang="de">Einfach</name>
+  <summary>The standard frontend of FreeSynergy Resources</summary>
+  <summary xml:lang="de">Das Standard-Frontend von FreeSynergy Resources</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT OR Apache-2.0</project_license>
+  <url type="homepage">https://github.com/FreeSynergy/fs-resources</url>
+  <developer id="net.freesynergy"><name>FreeSynergy</name></developer>
+  <extends>net.freesynergy.Resources</extends>
+  <requires>
+    <id version="0.0.2" compare="ge">net.freesynergy.Resources</id>
+  </requires>
+  <custom>
+    <value key="fs:kind">frontend</value>
+    <value key="fs:frontend-id">simple</value>
+    <value key="fs:exec">fs-resources-simple</value>
+    <value key="fs:contract">resources 0.1</value>
+    <value key="fs:requires">resources 0.1</value>
+  </custom>
+  <releases>
+    <release version="0.0.2" date="2026-11-17"/>
+  </releases>
+</component>
