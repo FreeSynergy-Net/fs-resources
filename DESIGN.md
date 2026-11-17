@@ -66,3 +66,21 @@ State pattern for both. `covered` = sum of accepted offers, and the need becomes
 
 ### Not built
 Costs, a time ledger, MSPDI import and export (fit unproven), skills, and scenarios. They have no contract method.
+
+## Window, server and frontend (basics 0.0.2, workflow `grundfassung`)
+
+Engine and frontend are separate processes (ADR 0021, ADR 0094 draft). Pattern map (ADR 0043):
+
+| Crate | Role | Pattern |
+|---|---|---|
+| `fs-resources-server` | `resources.capnp` 0.1 over a local socket (`fs-rpc` v0.0.2); answers `capabilities` (no ids, the contract version) and `supportReport`; the rest is `unimplemented` (ADR 0045) | Adapter |
+| `fs-resources-client` | `Hello::fetch`: handshake (`Control.version`, replace a server that differs), `capabilities`, contract check | Template method |
+| `fs-resources-simple` | frontend `simple`, a process (`[[bin]] fs-resources-simple`); depends only on the client and fs-components v0.0.25; window = icon next to the title, goal, what works today, what comes (texts as MessageFormat 2, de and en) | Adapter, Builder |
+| `fs-resources-bin` | command `fs-resources`: starter (server, `--check`, fallback to `simple`), `serve`, `--version`, `--help` | Facade, Strategy |
+
+Contract rule (ADR 0094 draft, item 4): same main level, minor level of the server not lower; the number is the server's `CONTRACT_VERSION` (`0.1`), the client names the same and a test compares them. A frontend exits with 3 and a message when it does not fit; the starter says so and opens the standard frontend.
+
+Order of work (decision of the owner, 2026-11-17): the basics (window, server, "What comes") come before the ValueFlows recast and are released early. The recast (kind of thing with a typed unit, hand-over, commitment, catalogue as a filter) follows later together with typed storage; it is planned, not scheduled. Offers and needs belong to this program (ADR 0087); a marketplace would later be a facet on them, not a program of its own.
+
+Not done, on purpose: no wiring of the core to the server (the window shows no things), no lease (the server runs until stopped or replaced), no frontend manifest search at run time (`packaging/frontends/simple.metainfo.xml` is shipped, the starter knows `simple` only). Contract: draft (`resources.capnp`, not locked). The basics are released with this draft contract.
+
