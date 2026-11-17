@@ -1,0 +1,31 @@
+[package]
+name = "fs-resources-bin"
+description = "FreeSynergy Resources: one command for the program. Without words it makes sure the server runs and opens the frontend; `serve` runs the server."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "fs-resources"
+path = "src/main.rs"
+
+[dependencies]
+fs-resources-server = { path = "../fs-resources-server" }
+fs-resources-client = { path = "../fs-resources-client" }
+
+# The frontend `simple` is a package of its own (one deb/rpm per Cargo package, ADR 0094 draft): the program needs it.
+# Both binaries are never in ONE deb (file conflict with the deb of fs-resources-simple).
+[package.metadata.deb]
+name = "fs-resources"
+# cargo-deb replaces only `$auto` in `depends`; so a fixed lower bound, not `${binary:Version}`.
+depends = "$auto, fs-resources-simple (>= 0.0.2)"
+
+# A package with its own generate-rpm table lists its assets itself (fs-release scripts/linux-pkg.sh).
+[package.metadata.generate-rpm]
+name = "fs-resources"
+assets = [{ source = "target/release/fs-resources", dest = "/usr/bin/fs-resources", mode = "755" }]
+[package.metadata.generate-rpm.requires]
+fs-resources-simple = ">= 0.0.2"

@@ -2,14 +2,16 @@
 name = "fs-resources-core"
 description = "Program core of FreeSynergy resources: what we have, who has time, what we need and who offers it"
 version.workspace = true
+authors.workspace = true
+repository.workspace = true
 edition.workspace = true
 license.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-fs-objects = { git = "https://github.com/FreeSynergy/fs-objects", tag = "v0.0.1" }
+fs-objects = { git = "https://github.com/FreeSynergy/fs-objects", tag = "v0.0.6" }
 # The contract and the provider rule (ADR 0045).
-fs-interfaces = { git = "https://github.com/FreeSynergy/fs-interfaces", tag = "v0.0.1" }
+fs-interfaces = { git = "https://github.com/FreeSynergy/fs-interfaces", tag = "v0.0.27" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 chrono = { version = "0.4", default-features = false, features = ["std", "clock", "serde"] }

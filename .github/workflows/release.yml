@@ -1,0 +1,25 @@
+# Release of FreeSynergy Resources on a version tag (fs-release caller, pinned).
+name: release
+on:
+  push: { tags: ["v*"] }
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+  packages: write
+jobs:
+  release:
+    uses: FreeSynergy/fs-release/.github/workflows/release.yml@v0.0.10
+    with:
+      # `fs-resources` holds the server (`fs-resources serve`) and the starter; `fs-resources-simple` is the frontend process.
+      binaries: fs-resources,fs-resources-simple
+      ignore-binaries: fs-resources-server
+      cargo-package: fs-resources-bin
+      name: fs-resources
+      kind: app
+      app-id: net.freesynergy.Resources
+      macos: false
+      windows-targets: ""   # Unix sockets and Unix paths for now
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

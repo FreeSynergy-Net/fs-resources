@@ -1,0 +1,34 @@
+[package]
+name = "fs-resources-simple"
+description = "The standard frontend `simple` of FreeSynergy Resources: a window on fs-components that talks to the server only through the client crate"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "fs_resources_simple"
+
+# The process the starter `fs-resources` runs (ADR 0094 draft, item 6): never started by a person directly.
+[[bin]]
+name = "fs-resources-simple"
+path = "src/main.rs"
+
+[dependencies]
+# ONLY the client and fs-components (ADR 0094 draft, item 6): never -core and never -server (a test checks `cargo tree`).
+fs-resources-client = { path = "../fs-resources-client" }
+# One tag of fs-components for everything; Blinc comes only through it (`fs_components::blinc`), never as a dependency here.
+fs-components = { git = "https://github.com/FreeSynergy/fs-components", tag = "v0.0.25" }
+fs-components-app = { git = "https://github.com/FreeSynergy/fs-components", tag = "v0.0.25" }
+fs-components-widgets = { git = "https://github.com/FreeSynergy/fs-components", tag = "v0.0.25" }
+fs-components-mf2 = { git = "https://github.com/FreeSynergy/fs-components", tag = "v0.0.25" }
+fs-components-words = { git = "https://github.com/FreeSynergy/fs-components", tag = "v0.0.25" }
+
+base64 = "0.22"
+
+[dev-dependencies]
+# The real server, started inside the tests only (a dev-dependency: `cargo tree -e normal` shows no way to -server).
+fs-resources-server = { path = "../fs-resources-server" }
+tempfile = "3"
