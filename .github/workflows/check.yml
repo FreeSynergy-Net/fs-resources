@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   check:
-    uses: FreeSynergy/fs-release/.github/workflows/check.yml@v0.0.10
+    uses: FreeSynergy/fs-release/.github/workflows/check.yml@v0.0.11
     with:
       # Software Vulkan (lavapipe) and fonts, as for the other programs with a window (the frontend builds on fs-components).
       software-gpu: true
